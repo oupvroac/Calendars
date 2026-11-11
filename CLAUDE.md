@@ -14,7 +14,7 @@ Everything below is documented from the football calendar. Mirror its convention
 
 All user-facing text is in Spanish (`PRODID` is `-//Claude//Futbol Mexico + UEFA Nations League//ES`). It holds 162 `VEVENT`s in two kinds, described below: 6 Selección Mexicana matches and 156 UEFA Nations League 2026/27 league-phase matches.
 
-The owner mainly follows **México, España, Inglaterra and Alemania**; the other teams are included for completeness. Keep those four teams' matches verified and current, and don't remove the rest: the owner wants the matches of every country in UEFA national-team competitions in the calendar (interpreted as senior national teams; not clubs). Followed teams are marked in the `SUMMARY` with the team flag (see below).
+The owner mainly follows **México, España, Inglaterra and Alemania**; the other teams are included for completeness. Keep those four teams' matches verified and current, and don't remove the rest: the owner wants the matches of every country in UEFA national-team competitions in the calendar (senior national teams only; the owner confirmed that clubs are followed in another app, so don't add club competitions). Followed teams are marked in the `SUMMARY` with the team flag (see below).
 
 **Alarms (`VALARM`, 30 minutes before) only for México, España and Inglaterra.** Alemania and every other team get no alarm. Note that the owner's iPhone subscription has "Eliminar alertas" switched on, which strips alarms coming from the file; they only fire if the owner turns that off (or sets default alerts on the device).
 
