@@ -4,23 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A single hand-maintained iCalendar data file, `mexico_y_uefa_nations_league_2026-27.ics`, meant to be imported or subscribed to from a calendar app. There is no code, build, test suite or linter, and no generator script: edits are made directly to the `.ics`. All user-facing text is in Spanish (`PRODID` is `-//Claude//Futbol Mexico + UEFA Nations League//ES`).
+A repo for publishing iCalendar (`.ics`) calendars that the owner subscribes to from their own devices, to keep track of important dates. The owner updates the dates here and the devices pick the changes up through the subscription. It currently holds one calendar, `mexico_y_uefa_nations_league_2026-27.ics` (football), and more calendars are expected to be added later, each as its own standalone `.ics` at the repo root. There is no code, build, test suite or linter, and no generator script: edits are made directly to the `.ics` files.
 
-It holds 161 `VEVENT`s in two kinds, described below: 5 Selección Mexicana matches and 156 UEFA Nations League 2026/27 league-phase matches. `X-WR-CALDESC` says the data is as of 23/09/2026, and every event's `DTSTAMP` is `20260923T120000Z`. Keep the two consistent if you refresh data.
+Because devices are subscribed to the published files, don't rename or move an existing `.ics`, and don't change existing UIDs, without checking with the user first.
+
+Everything below is documented from the football calendar. Mirror its conventions in any new calendar unless the user says otherwise.
+
+## The football calendar
+
+All user-facing text is in Spanish (`PRODID` is `-//Claude//Futbol Mexico + UEFA Nations League//ES`). It holds 161 `VEVENT`s in two kinds, described below: 5 Selección Mexicana matches and 156 UEFA Nations League 2026/27 league-phase matches. `X-WR-CALDESC` says the data is as of 23/09/2026, and every event's `DTSTAMP` is `20260923T120000Z`. Keep the two consistent if you refresh data.
 
 ## Validating changes
 
-No iCalendar tooling is installed (the Python `icalendar` package is absent), so check the format with plain shell. On the current file these report 161, 0, 0 and 0:
+No iCalendar tooling is installed (the Python `icalendar` package is absent), so check the format with plain shell. Set `f` to the calendar being edited. On the football calendar these report 161, 0, 0 and 0:
 
 ```bash
-f=mexico_y_uefa_nations_league_2026-27.ics
+f=mexico_y_uefa_nations_league_2026-27.ics   # or any other calendar in the repo
 grep -c '^BEGIN:VEVENT' $f                                              # event count
 grep '^UID:' $f | sort | uniq -d | wc -l                                # duplicate UIDs
 LC_ALL=C awk '{sub(/\r$/,""); if (length($0)>75) n++} END{print n+0}' $f   # lines over 75 octets
 grep -vc $'\r$' $f                                                      # lines missing CRLF
 ```
 
-## Format conventions (all hold across the whole file)
+## Format conventions (all hold across the whole football calendar)
 
 - **CRLF line endings, folded at 75 octets.** A fold is `CRLF` plus one space. Folds land mid-word, which is normal, but never inside a multibyte UTF-8 character (emoji, `ó`, `·`). Count octets, not characters.
 - **Text escaping:** `\,` `\;` and a literal `\n` for line breaks inside `DESCRIPTION`/`LOCATION`/`SUMMARY`.
